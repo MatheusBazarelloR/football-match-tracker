@@ -7,17 +7,17 @@ __pycache__/
 /cache/
 
 # Configuração local do Serena
-/.serena
+/.serena/
 
 # Grafo do LeanKG (regenerável)
-/.leankg
+/.leankg/
 
-# Arquivos locais e segredos
+# Arquivos locais e segredos (não compartilhe!)
 .env
 .env.*
 !.env.example
-AGENTS.MD
+AGENTS.md
+/docs
 Briefing_Football_Match_Tracker_v2.1.pdf
 leankg.yaml
 opencode.jsonc
-/docs
