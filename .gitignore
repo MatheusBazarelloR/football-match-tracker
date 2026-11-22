@@ -1,0 +1,18 @@
+# Ambiente Python
+/.venv/
+__pycache__/
+*.py[cod]
+
+# Arquivos temporários
+/cache/
+
+# Configuração local do Serena
+/.serena/project.local.yml
+
+# Grafo do LeanKG (regenerável)
+/.leankg/
+
+# Arquivos locais e segredos
+.env
+.env.*
+!.env.example

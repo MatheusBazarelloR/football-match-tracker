@@ -1,0 +1,82 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+
+    "model": "ollama/qwen3.5:9b",
+
+    "permission": {
+        // leitura livre, exceto segredos
+        "read": {
+            "*": "allow",
+            "**/.env*": "deny",
+            "**/.env.example": "allow",
+        },
+
+        // só os dois arquivos de memória do mentor podem ser editados
+        "edit": {
+            "*": "deny",
+            "docs/mentor/PROGRESSO.md": "allow",
+            "docs/mentor/CONTEXTO.md": "allow",
+        },
+
+        // comandos de leitura passam direto, o resto pergunta
+        "bash": {
+            "*": "ask",
+            "git status*": "allow",
+            "git diff*": "allow",
+            "git log*": "allow",
+            "ls*": "allow",
+            "rm *": "deny",
+        },
+
+        "external_directory": "ask",
+        "task": "deny",
+
+        // ferramenta do LeanKG que escreve config no disco
+        "leankg_set": "ask",
+    },
+
+    "mcp": {
+        "serena": {
+            "type": "local",
+            "command": [
+                "/home/matheusbr/.local/bin/serena",
+                "start-mcp-server",
+                "--project",
+                "/home/matheusbr/Documentos/Projetos/football-match-tracker",
+                "--context",
+                "ide",
+                "--agent-interface",
+                "tools",
+            ],
+            "enabled": false,
+            "timeout": 30000,
+        },
+
+        "leankg": {
+            "type": "local",
+            "command": ["/home/matheusbr/.cargo/bin/leankg", "mcp-stdio", "--watch"],
+            "enabled": true,
+            "timeout": 30000,
+        },
+    },
+
+    "provider": {
+        "ollama": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "Ollama",
+            "options": {
+                "baseURL": "http://localhost:11434/v1",
+            },
+            "models": {
+                "qwen3.5:9b": {
+                    "name": "Qwen 3.5 9B",
+                    "limit": {
+                        "context": 16384,
+                        "output": 8192,
+                    },
+                    "options": { "reasoningEffort": "low" },
+                },
+            },
+        },
+    },
+}
